@@ -32,7 +32,7 @@ jobs:
     name: Detect languages to scan
     runs-on: ubuntu-latest
     permissions:
-      contents: readß
+      contents: read
       pull-requests: read
     outputs:
       languages: ${{ steps.set-languages.outputs.languages }}
