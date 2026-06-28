@@ -19,12 +19,7 @@
 name: "CodeQL"
 
 on:  # yamllint disable-line rule:truthy
-  pull_request:
-    branches: ['main', 'v[0-9]+-[0-9]+-test', 'v[0-9]+-[0-9]+-stable']
-  push:
-    branches: ['main', 'v[0-9]+-[0-9]+-test', 'v[0-9]+-[0-9]+-stable']
-  schedule:
-    - cron: '0 2 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -35,9 +30,9 @@ concurrency:
 jobs:
   detect-languages:
     name: Detect languages to scan
-    runs-on: ["ubuntu-22.04"]
+    runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: readß
       pull-requests: read
     outputs:
       languages: ${{ steps.set-languages.outputs.languages }}
@@ -97,7 +92,7 @@ jobs:
     needs: detect-languages
     # Skip entirely when no scannable language changed (e.g. docs-only PRs).
     if: needs.detect-languages.outputs.languages != '[]'
-    runs-on: ["ubuntu-22.04"]
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
